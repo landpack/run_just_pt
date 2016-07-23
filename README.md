@@ -107,6 +107,10 @@ According the docs, we can follow it and just simple modify something,it's will 
 run `git checkout v0.2` can see it.
 
 
+###Create Serializer By ModelSerializer
+
+Some one have a old said, a good programmer should not be repeat itself! so , I will show you how to use `ModelSerializer`, run `git chekcout v0.3` see current version.
+
 ## Last Mission(Deploy it)
 
 pass
