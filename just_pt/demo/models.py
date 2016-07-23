@@ -15,6 +15,7 @@ class Message(models.Model):
     content = models.TextField(verbose_name=u'消息内容', null=True, blank=True)
     category = models.PositiveSmallIntegerField(verbose_name=u'消息类型',
                                                 default=0)
+    user = models.ForeignKey('UserMessage', null=True, blank=True)
 
     def __unicode__(self):
         return u'%s' % self.title
@@ -35,7 +36,10 @@ class UserMessage(models.Model):
     readed = models.BooleanField(verbose_name=u'已读', default=False)
     status = models.IntegerField(verbose_name=u'记录状态', default=0)
     create_time = models.DateTimeField(verbose_name=u'创建时间', auto_now_add=True)
-    message = models.ForeignKey(Message, null=True, blank=True)
+    #message = models.ForeignKey(Message, null=True, blank=True)
      
     class Meta:
         ordering = ('create_time',)
+    
+    def __unicode__(self):
+        return u'User ID %s' % self.id

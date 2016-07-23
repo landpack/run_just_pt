@@ -222,6 +222,50 @@ http POST http://127.0.0.1:8000/demo/api/v0.1/user_message_list @user_message_sa
 BTW,my test work fine,I no going to put the result there.
 Try `git checkout v0.6a ` to get current version.
 
+###Show Message filter by User
+To get the message which belong someone, just simple call  Django ORM with a filter function. I will implement it with `api version 2`
+
+###Fix the model logic
+I don't why, but I feel the `UserMessage` should no have a ForeignKey, I think the ForeignKey should be inside the Message class. so I do some modify. add the below line into the Message class.
+
+```
+user = models.ForeignKey('UserMessage', null=True,blank=True)
+
+```
+Now, just run migrate , do below command
+
+```
+python manage.py makemigrations demo
+python manage.py migrate
+```
+You can play with shell now!
+
+```
+>>> from demo.models import UserMessage,Message
+>>> u=UserMessage(recv_user=110)
+>>> u.save()
+>>> u
+<UserMessage: User ID 8>
+>>> u.message_set
+<django.db.models.fields.related_descriptors.RelatedManager object at 0x107822810>
+>>> u.message_set.all()
+[]
+
+```
+Hey, the User ID is 8, it's because I have delete de database for now! I just change the database structure.
+you can see current user have no message! so let's add some message to our user.
+
+```
+>> m=Message(title='hello, django',user=u)
+>>> m.save()
+>>> m=Message(title='good bye, flask',user=u)
+>>> m.save()
+>>> u.message_set.all()
+[<Message: hello, django>, <Message: good bye, flask>]
+
+```
+
+HaHa, we got all message belong to the user. `git checkout v0.7` to here.
 
 ##Api & Memcached
 
