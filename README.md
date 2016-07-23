@@ -210,6 +210,23 @@ X-Frame-Options: SAMEORIGIN
     "title": "greet"
 }
 ```
+Try `git checkout v0.6` to current version.
+
+To test another api ,just do the same, cause we are going to have two test json file, so i rename the sample.json to message_sample.json and then add a new file name as user_message_sample.json for test another api.
+
+It's also simple, just run the below command:
+
+```
+http POST http://127.0.0.1:8000/demo/api/v0.1/user_message_list @user_message_sample.json
+```
+BTW,my test work fine,I no going to put the result there.
+Try `git checkout v0.6a ` to get current version.
+
+
+##Api & Memcached
+
+pass
+
 
 ## Last Mission(Deploy it)
 
