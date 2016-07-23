@@ -166,6 +166,51 @@ X-Frame-Options: SAMEORIGIN
 ```
 Currently version of my code, can run `git checkout v0.5` to get it.
 
+###Make more API & Make version tag to the API
+
+Because the api should be change as the time goes and the requirement being change, so have version control is good idea. it's simple just do some change to the `demo/urls.py`
+
+```
+ url(r'^api/v0.1/message_list$',views.message_list),
+ 
+```
+Okay , let's add api to transer data with UserMessage class. Okay, keep test our api, first let's test `POST` method.
+
+I have write simple sample json file name as sample.json
+
+```
+   {
+        "category": 3, 
+        "content": "hello json", 
+        "status": 0, 
+        "title": "greet"
+    }
+
+```
+
+quit your editer and save it to the root directory of project, and then run the below code to `POST` it to the server.
+
+```
+http POST http://127.0.0.1:8000/demo/api/v0.1/message_list @sample.json
+```
+I you done, you should see the below output.
+
+```
+HTTP/1.0 201 Created
+Content-Type: application/json
+Date: Sat, 23 Jul 2016 10:55:06 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+{
+    "category": 3, 
+    "content": "hello json", 
+    "id": 5, 
+    "status": 0, 
+    "title": "greet"
+}
+```
+
 ## Last Mission(Deploy it)
 
 pass
