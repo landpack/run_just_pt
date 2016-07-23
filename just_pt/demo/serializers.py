@@ -6,7 +6,7 @@ class MessageSerializer(serializers.ModelSerializer):
 		model = Message
 		fields = ('id','status','title','content','category')
 
-class UserMessageSerializer(serializers.Serializer):
+class UserMessageSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserMessage
 		fields = ('id','recv_user','send_user','readed','status')

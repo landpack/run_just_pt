@@ -36,3 +36,24 @@ def message_list(request):
 
 
 
+@csrf_exempt
+def user_message_list(request):
+	"""
+	List all message, or create a new message
+	"""
+	
+	if request.method == 'GET':
+		message = UserMessage.objects.all()
+		serializer = UserMessageSerializer(message, many=True)
+		return JSONResponse(serializer.data)
+
+	elif request.method == 'POST':
+		data = JSONParser().parse(request)
+		serializer = UserMessageSerializer(data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return JSONResponse(serializer.data, status=201)
+		return JSONResponse(serializer.errors, status=400)
+
+
+
