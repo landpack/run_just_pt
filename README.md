@@ -1,4 +1,4 @@
-# Run Just Pt
+## Run Just Pt
 This is a demo for test the personal ability by the PuTao  ,There are only two point I need to do but I attachment one (deploy it to cloudy) myself.
 
 * 1.How to configure the environment.
@@ -71,8 +71,40 @@ This is very easy to create a superuser, if you work with  `flask` you be sadly 
 python manage.py createsuperuser
 ```
 Hit enter, and then follow promt expect you input some personal information , like your name, password, email, just input will fine :)
+Test models & admin
 
-###Test models & admin
+##Create api with Rest framework!
+To make the list have a certain order,I just simple modify the `demo/models.py` by add the below line.
+
+```
+class Meta:
+    ordering = ('create_time',)
+
+```
+
+###How to install Rest Framework?
+
+Just only one line command...
+```
+pip install djangorestframework
+```
+
+###How to install the Rest-Framework App to our project?
+
+It's also simple,just put the below line into the django `settings.py` fiel.
+
+```
+INSTALL_APPS = (
+	'rest_framework',
+	# rest of other code ...& app
+)
+```
+###Create a Serializer class.
+
+>The first thing we need to get started on our Web API is to provide a way of serializing and deserializing the snippet instances into representations such as json. We can do this by declaring serializers that work very similar to Django's forms. Create a file in the snippets directory named serializers.py and add the following.
+
+According the docs, we can follow it and just simple modify something,it's will work for me. So, I create a file in the `demeo` directory named `serializers.py` .
+run `git checkout v0.2` can see it.
 
 
 ## Last Mission(Deploy it)

@@ -20,6 +20,7 @@ class Message(models.Model):
         return u'%s' % self.title
 
 
+
 class UserMessage(models.Model):
     """ 用户消息
     recv_user:接收者（用户ID）；
@@ -35,3 +36,6 @@ class UserMessage(models.Model):
     status = models.IntegerField(verbose_name=u'记录状态', default=0)
     create_time = models.DateTimeField(verbose_name=u'创建时间', auto_now_add=True)
     message = models.ForeignKey(Message, null=True, blank=True)
+     
+    class Meta:
+        ordering = ('create_time',)
