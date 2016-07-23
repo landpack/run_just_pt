@@ -111,6 +111,61 @@ run `git checkout v0.2` can see it.
 
 Some one have a old said, a good programmer should not be repeat itself! so , I will show you how to use `ModelSerializer`, run `git chekcout v0.3` see current version.
 
+###writing regular django views using our serializer
+It's time to show our API to the public, so write some view function to `demo/views.py` to get currently code, go an run `git checkout v0.4`
+
+###To test APi by a tool name `http`
+
+simple install it by the below comamnd
+
+```
+pip install httpie
+```
+When you wake up your server by the follow command
+
+```
+python manage.py runserver
+```
+and then open a new terminal windows, run the below command.
+
+```
+http http://127.0.0.1:8000/demo/api/
+```
+output should be like the below ..(for me)
+
+```
+TTP/1.0 200 OK
+Content-Type: application/json
+Date: Sat, 23 Jul 2016 07:39:17 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "category": 1, 
+        "content": "hello", 
+        "id": 1, 
+        "status": 0, 
+        "title": "frank"
+    }, 
+    {
+        "category": 0, 
+        "content": "hello landpack", 
+        "id": 2, 
+        "status": 0, 
+        "title": "greet"
+    }, 
+    {
+        "category": 0, 
+        "content": "hello landpack", 
+        "id": 3, 
+        "status": 0, 
+        "title": "greet"
+    }
+]
+```
+Currently version of my code, can run `git checkout v0.5` to get it.
+
 ## Last Mission(Deploy it)
 
 pass
