@@ -112,6 +112,7 @@ def message_manage_new(request, pk):
 
 
 
+
 @csrf_exempt
 def message_manage_v4(request, pk):
 	"""
@@ -140,13 +141,26 @@ def message_manage_v4(request, pk):
 			return JSONResponse(serializer.data, status=201)
 		return JSONResponse(serializer.errors, status=400)
 
-
-
-
-
-
-
-
-
-
-
+@csrf_exempt
+def message_manage_v5(request, pk):
+	"""
+	send message, expect a message format as json like below:
+	{
+        "category": 3,
+        "content": "hello json",
+        "status": 0,
+        "title": "greet",
+	##"user":1 ---> this line are no need anymore.
+	##Because, we have add it by the url path ~!~
+	##it's very stupid way but work !
+	}
+	"""
+	try:
+		# get the un remove message for delete 
+		message = Message.objects.filter(id=pk, status=0)
+	except Message.DoesNotExist:
+		return HttpResponse(status=404)
+	
+	if request.method == 'DELETE':
+		message.delete()
+		return HttpResponse(status=204)

@@ -682,6 +682,68 @@ X-Frame-Options: SAMEORIGIN
 ```
 Okay, i have finish the current tag, it's pretty cool.to get the current version, run `git checkout v0.9` .
 
+```
+(putaoEnv)just_pt $http http://127.0.0.1:8000/demo/api/v0.4/message_manage/1/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Date: Sun, 24 Jul 2016 17:37:05 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 2, 
+        "status": 0, 
+        "title": "second message", 
+        "user": 1
+    }, 
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 4, 
+        "status": 0, 
+        "title": "flask is to light even can fly", 
+        "user": 1
+    }
+]
+
+(putaoEnv)just_pt $http DELETE http://127.0.0.1:8000/demo/api/v0.4/message_manage/4/delete
+HTTP/1.0 204 No Content
+Content-Length: 0
+Content-Type: text/html; charset=utf-8
+Date: Sun, 24 Jul 2016 17:37:42 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+
+
+(putaoEnv)just_pt $http http://127.0.0.1:8000/demo/api/v0.4/message_manage/1/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Date: Sun, 24 Jul 2016 17:37:49 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 2, 
+        "status": 0, 
+        "title": "second message", 
+        "user": 1
+    }
+]
+
+
+```
+I dont want to say any word, just see the result put at below.got `git checkout v1.0`
+
+Sadly, I have no time to implement the pagination for now ~!~ 
+
+
 ##Attachment
 
 

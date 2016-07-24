@@ -8,4 +8,5 @@ urlpatterns = [
 	url(r'^api/v0.2/message_manage/(?P<pk>[0-9]+)/$', views.message_manage),
 	url(r'^api/v0.3/message_manage/(?P<pk>[0-9]+)/$', views.message_manage_new),
 	url(r'^api/v0.4/message_manage/(?P<pk>[0-9]+)/$', views.message_manage_v4),
+	url(r'^api/v0.4/message_manage/(?P<pk>[0-9]+)/delete$', views.message_manage_v5),
 ]
