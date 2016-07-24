@@ -2,6 +2,6 @@
         "category": 0, 
         "content": null, 
         "id": 2, 
-        "status": 0, 
-        "title": "django is bad idea to  write a API", 
+        "status": 1, 
+        "title": "hey, this message should no show" 
     }
