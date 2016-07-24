@@ -515,6 +515,7 @@ Okay, time to test our `POST` method, do it with follow command:
 ```
 
 Now, you can see the output ,I do both test `GET` & `POST` ,to git current version, got `git checkout v0.8`
+
 ```
 HTTP/1.0 200 OK
 Content-Type: application/json
@@ -543,6 +544,143 @@ X-Frame-Options: SAMEORIGIN
 
 ```
 
+Now, let's review the question, we just need to list the message which mark as unremove-message.so we need to do some filter before we show it. let's play it with shell.
+
+```
+>>> Message.objects.filter(user__id=1,status=0)
+[<Message: second message>, <Message: flask is to light even can fly>]
+>>> from demo.models import Message
+>>> Message.objects.filter(user__id=1,status=0)
+[<Message: second message>, <Message: flask is to light even can fly>]
+>>> Message.objects.filter(user__id=1,status=1)
+[]
+```
+Now, it's time to rewrite the `demo/views.py` again.
+
+
+```
+@csrf_exempt
+def message_manage_v4(request, pk):
+ #Rest of code ...
+ if request.method == 'GET':
+                message = Message.objects.filter(user__id=pk, status=0)
+
+```
+
+And now, just register it inside the `demo/urls.py` again! it's boring , right?  ~!~ But this it job!
+
+
+```
+urlpatterns = [
+
+ #rest the of code ...
+        url(r'^api/v0.4/message_manage/(?P<pk>[0-9]+)/$', views.message_man
+age_v4),
+]
+```
+
+Now,test my api version 0.4 ,The current test data show as below.
+
+```
+  {
+        "category": 0,
+        "content": null,
+        "id": 2,
+        "status": 1,
+        "title": "hey, this message should no show"                       
+    }
+
+```
+Okay, try the super tool `http`,and then do the follow command.
+
+step one, check our database with api. the result show below.
+
+```
+(putaoEnv)just_pt $http http://127.0.0.1:8000/demo/api/v0.4/message_manage
+/1/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Date: Sun, 24 Jul 2016 16:59:20 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 2, 
+        "status": 0, 
+        "title": "second message", 
+        "user": 1
+    }, 
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 4, 
+        "status": 0, 
+        "title": "flask is to light even can fly", 
+        "user": 1
+    }
+]
+
+```
+
+step two, post some new data, but the message status set to 1.
+
+```
+(putaoEnv)just_pt $http POST http://127.0.0.1:8000/demo/api/v0.4/message_m
+anage/1/ @message_manage_new_sample.json
+HTTP/1.0 201 Created
+Content-Type: application/json
+Date: Sun, 24 Jul 2016 16:58:39 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+{
+    "category": 0, 
+    "content": null, 
+    "id": 7, 
+    "status": 1, 
+    "title": "hey, this message should no show", 
+    "user": 1
+}
+
+```
+ 
+Okay, we can test why the new data can show .
+
+```
+
+(putaoEnv)just_pt $http http://127.0.0.1:8000/demo/api/v0.4/message_manage
+/1/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Date: Sun, 24 Jul 2016 17:02:36 GMT
+Server: WSGIServer/0.1 Python/2.7.10
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 2, 
+        "status": 0, 
+        "title": "second message", 
+        "user": 1
+    }, 
+    {
+        "category": 0, 
+        "content": null, 
+        "id": 4, 
+        "status": 0, 
+        "title": "flask is to light even can fly", 
+        "user": 1
+    }
+]
+
+
+```
+Okay, i have finish the current tag, it's pretty cool.to get the current version, run `git checkout v0.9` .
 
 ##Attachment
 
