@@ -82,5 +82,37 @@ def message_manage(request, pk):
 
 
 
+@csrf_exempt
+def message_manage_new(request, pk):
+	"""
+	send message, expect a message format as json like below:
+	{
+        "category": 3,
+        "content": "hello json",
+        "status": 0,
+        "title": "greet",
+	##"user":1 ---> this line are no need anymore.
+	##Because, we have add it by the url path ~!~
+	##it's very stupid way but work !
+	}
+	"""
+	if request.method == 'GET':
+		message = Message.objects.filter(user__id=pk)
+		serializer = MessageSerializer(message, many=True)
+		return JSONResponse(serializer.data)
+	
+	elif request.method == 'POST':
+		data = JSONParser().parse(request)
+		data['user']=pk	# add user id automatic
+		serializer = MessageSerializer(data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return JSONResponse(serializer.data, status=201)
+		return JSONResponse(serializer.errors, status=400)
+
+
+
+
+
 
 
